@@ -1,11 +1,12 @@
-import { Box, Button } from "@mui/material";
-import "./App.css";
-
+import { Box, Button, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "./contexts/ThemeContext";
 import { DEFAULT_LANGUAGE } from "./languages/i18n";
 import { AnimatedHeader } from "./components/AnimatedHeader";
+import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
+
+import "./App.css";
 
 function App() {
   const { isLightMode, changeThemeMode } = useContext(ThemeContext);
@@ -43,6 +44,28 @@ function App() {
       >
         {t("change_language")}
       </Button>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <HandymanOutlinedIcon
+          sx={{
+            height: 200,
+            width: 200,
+            color: isLightMode ? "grey" : "#426274",
+          }}
+        />
+
+        <Typography variant="h2" color={isLightMode ? "grey" : "#426274"}>
+          {t("under_construction")}
+        </Typography>
+      </Box>
     </Box>
   );
 }
