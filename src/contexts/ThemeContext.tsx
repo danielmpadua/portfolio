@@ -1,0 +1,40 @@
+import { ReactNode, createContext, useEffect, useState } from "react";
+
+type TThemeContext = {
+  isLightMode: boolean;
+  changeThemeMode: () => void;
+};
+
+type TThemeProvider = {
+  children: ReactNode;
+};
+
+const defaultState: TThemeContext = {
+  isLightMode: true,
+  changeThemeMode: () => {},
+};
+
+export const ThemeContext = createContext(defaultState);
+
+export const ThemeProvider = ({ children }: TThemeProvider) => {
+  const [isLightMode, setIsLightMode] = useState<boolean>(true);
+
+  const changeThemeMode = () => {
+    setIsLightMode((prev) => {
+      sessionStorage.setItem("lightMode", JSON.stringify(!prev));
+      return !prev;
+    });
+  };
+
+  useEffect(() => {
+    if (!sessionStorage?.getItem("lightMode")) setIsLightMode(true);
+    else setIsLightMode(sessionStorage.getItem("lightMode") === "true");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionStorage?.getItem("lightMode")]);
+
+  return (
+    <ThemeContext.Provider value={{ isLightMode, changeThemeMode }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
