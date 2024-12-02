@@ -80,7 +80,7 @@ function App() {
           />
 
           <Typography variant="h2" color={"#426274"}>
-            {t("under_construction")}
+            {t("under_construction")} :)
           </Typography>
         </Box>
       </Box>
