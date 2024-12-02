@@ -25,7 +25,9 @@ function App() {
         background: isLightMode
           ? "linear-gradient(180deg, rgba(82,204,255,1) 19%, rgba(25,182,247,1) 70%)"
           : "linear-gradient(0deg, rgba(40,59,70,1) 19%, rgba(14,20,24,1) 70%)",
-        height: "100vh",
+        height: "100vh", // vh fallback
+        // @ts-ignore
+        height: "100dvh",
         padding: 0,
         margin: 0,
         position: "relative",
