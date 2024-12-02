@@ -24,6 +24,7 @@ export const AnimatedFooter = () => {
         position: "absolute",
         right: 0,
         bottom: animationHeight,
+        zIndex: 0,
       }}
     >
       <Box sx={{ position: "relative" }}>
