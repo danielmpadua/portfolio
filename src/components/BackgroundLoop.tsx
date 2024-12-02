@@ -1,45 +1,42 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { TAnimation } from "../hooks/useDaniAnimation";
+import {
+  BG_DISTANCE,
+  GROUND_DISTANCE,
+  GROUND_SPEED,
+  GROUND_WIDTH,
+  TAnimation,
+  useDanielAnimation,
+} from "../hooks/useDaniAnimation";
 
 type TBackgroundLoop = {
   currentAnimation: TAnimation;
   groundImg: string;
   bgImg: string;
-  skyImg: string;
-  bgColor: string;
   width: number;
 };
-
-const defaultImgHeight = 500;
-const defaultImgWidth = 1920;
-const skyWidth = 200;
-const groundWidth = 600;
-const groundSpeed = 200;
-const groundDistance = 10;
-const bgDistance = 5;
 
 export const BackgroundLoop = ({
   currentAnimation,
   bgImg,
-  bgColor,
   groundImg,
-  skyImg,
   width,
 }: TBackgroundLoop) => {
+  const { animationHeight } = useDanielAnimation({ width });
+
   const [groundsPosition, setGroundsPosition] = useState<number[]>(
-    Array(Math.ceil(width / groundWidth) + 1)
+    Array(Math.ceil(width / GROUND_WIDTH) + 1)
       .fill(undefined)
       .map((_, index) => {
-        return groundWidth * (index - 1);
+        return GROUND_WIDTH * (index - 1);
       })
   );
 
   const [bgPosition, setBgPosition] = useState<number[]>(
-    Array(Math.ceil(width / groundWidth) + 1)
+    Array(Math.ceil(width / GROUND_WIDTH) + 1)
       .fill(undefined)
       .map((_, index) => {
-        return groundWidth * (index - 1);
+        return GROUND_WIDTH * (index - 1);
       })
   );
 
@@ -47,50 +44,46 @@ export const BackgroundLoop = ({
     setGroundsPosition((prev) =>
       prev?.map((position, index) => {
         if (index === prev?.length - 1 && position > width)
-          return prev[0] - groundWidth + groundDistance;
+          return prev[0] - GROUND_WIDTH + GROUND_DISTANCE;
         if (position > width)
-          return prev[index + 1] - groundWidth + groundDistance;
-        return position + groundDistance;
+          return prev[index + 1] - GROUND_WIDTH + GROUND_DISTANCE;
+        return position + GROUND_DISTANCE;
       })
     );
 
     setBgPosition((prev) =>
       prev?.map((position, index) => {
         if (index === prev?.length - 1 && position > width)
-          return prev[0] - groundWidth + bgDistance;
-        if (position > width) return prev[index + 1] - groundWidth + bgDistance;
-        return position + bgDistance;
+          return prev[0] - GROUND_WIDTH + BG_DISTANCE;
+        if (position > width)
+          return prev[index + 1] - GROUND_WIDTH + BG_DISTANCE;
+        return position + BG_DISTANCE;
       })
     );
-  };
-
-  const bgColorHeight = () => {
-    const proportion = groundWidth / defaultImgWidth;
-    return defaultImgHeight * proportion;
   };
 
   useEffect(() => {
     if (currentAnimation?.name === "walk") {
       endlessBackgroundAnimation();
-      const intervalId = setInterval(endlessBackgroundAnimation, groundSpeed);
+      const intervalId = setInterval(endlessBackgroundAnimation, GROUND_SPEED);
       return () => clearInterval(intervalId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAnimation?.name]);
 
   useEffect(() => {
-    if (groundsPosition?.length !== Math.ceil(width / groundWidth) + 1) {
-      const arr = Array(Math.ceil(width / groundWidth) + 1).fill(undefined);
+    if (groundsPosition?.length !== Math.ceil(width / GROUND_WIDTH) + 1) {
+      const arr = Array(Math.ceil(width / GROUND_WIDTH) + 1).fill(undefined);
 
       setGroundsPosition(
         arr?.map((_, index) => {
-          return groundWidth * (index - 1);
+          return GROUND_WIDTH * (index - 1);
         })
       );
 
       setBgPosition(
         arr?.map((_, index) => {
-          return groundWidth * (index - 1);
+          return GROUND_WIDTH * (index - 1);
         })
       );
     }
@@ -102,27 +95,16 @@ export const BackgroundLoop = ({
       sx={{
         position: "relative",
         display: "flex",
-        background: bgColor,
-        height: bgColorHeight(),
+        height: animationHeight,
         width: "100%",
       }}
     >
-      <Box
-        sx={{
-          zIndex: 98,
-          position: "absolute",
-          left: `calc(50% - ${skyWidth / 2}px)`,
-        }}
-      >
-        <img src={skyImg} alt="sky" style={{ width: skyWidth }} />
-      </Box>
-
       {groundsPosition?.map((position, index) => (
         <Box
           key={index}
           sx={{ zIndex: 100, position: "absolute", left: position }}
         >
-          <img src={groundImg} alt="ground" style={{ width: groundWidth }} />
+          <img src={groundImg} alt="ground" style={{ width: GROUND_WIDTH }} />
         </Box>
       ))}
 
@@ -131,7 +113,7 @@ export const BackgroundLoop = ({
           key={index}
           sx={{ zIndex: 99, position: "absolute", left: position }}
         >
-          <img src={bgImg} alt="back ground" style={{ width: groundWidth }} />
+          <img src={bgImg} alt="back ground" style={{ width: GROUND_WIDTH }} />
         </Box>
       ))}
     </Box>

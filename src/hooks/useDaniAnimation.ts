@@ -16,7 +16,13 @@ type TDanielAnimation = {
   width: number;
 };
 
-const functionDelay = 10;
+export const FUNCTION_DELAY = 10;
+export const DEFAULT_IMG_HEIGHT = 500;
+export const DEFAULT_IMG_WIDTH = 1920;
+export const GROUND_WIDTH = 600;
+export const GROUND_SPEED = 100;
+export const GROUND_DISTANCE = 10;
+export const BG_DISTANCE = 5;
 
 const AnimationOptions: TAnimation[] = [
   {
@@ -58,6 +64,11 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
     );
   };
 
+  const animationHeight = () => {
+    const proportion = GROUND_WIDTH / DEFAULT_IMG_WIDTH;
+    return DEFAULT_IMG_HEIGHT * proportion;
+  };
+
   useEffect(() => {
     setCurrentAnimation(AnimationOptions[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +83,7 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
       };
 
       setCurrentAnimation(newAnimation);
-    }, currentAnimation?.time - functionDelay);
+    }, currentAnimation?.time - FUNCTION_DELAY);
 
     return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,5 +93,6 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
     currentAnimation,
     AnimationOptions,
     setCurrentAnimation,
+    animationHeight: animationHeight(),
   };
 };
