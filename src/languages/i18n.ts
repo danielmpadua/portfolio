@@ -5,7 +5,7 @@ import i18n from "i18next";
 import ptTranslations from "./pt.json";
 import enTranslations from "./en.json";
 
-export const DEFAULT_LANGUAGE = "pt";
+export const DEFAULT_LANGUAGE = localStorage.getItem("language") || "pt";
 
 i18n.use(initReactI18next).init({
   lng: DEFAULT_LANGUAGE,
