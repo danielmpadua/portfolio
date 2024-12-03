@@ -3,11 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "./contexts/ThemeContext";
 import { DEFAULT_LANGUAGE } from "./languages/i18n";
-import { AnimatedFooter } from "./components/AnimatedFooter";
 import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
 import { ThemeSwitch } from "./components/ThemeSwitch";
 import { useDanielAnimation } from "./hooks/useDaniAnimation";
 import { useScreenSize } from "./hooks/useScreenSize";
+import { AppContainer } from "./components/AppContainer";
+import { FooterAnimation } from "./components/FooterAnimation";
+
+const APP_BAR_HEIGHT = 52;
 
 function App() {
   const { isLightMode, changeThemeMode } = useContext(ThemeContext);
@@ -23,28 +26,15 @@ function App() {
   } = useTranslation();
 
   useEffect(() => {
-    changeLanguage(sessionStorage.getItem("language") || DEFAULT_LANGUAGE);
+    changeLanguage(localStorage.getItem("language") || DEFAULT_LANGUAGE);
     setCountry(
-      sessionStorage.getItem("language") === "en" ? countries[1] : countries[0]
+      localStorage.getItem("language") === "en" ? countries[1] : countries[0]
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        background: isLightMode ? "#19B6F7" : "#0E1418",
-        // ? "linear-gradient(180deg, rgba(82,204,255,1) 19%, rgba(25,182,247,1) 70%)"
-        // : "linear-gradient(0deg, rgba(40,59,70,1) 19%, rgba(14,20,24,1) 70%)",
-        height: "100vh", // vh fallback
-        // @ts-ignore
-        height: "100dvh",
-        padding: 0,
-        margin: 0,
-        position: "relative",
-      }}
-    >
+    <AppContainer isLightMode={isLightMode}>
       <AppBar
         position="static"
         sx={{
@@ -77,14 +67,14 @@ function App() {
             onChange={(e) => {
               const newLanguage = e.target.value === "BR" ? "pt" : "en";
               changeLanguage(newLanguage);
-              sessionStorage.setItem("language", newLanguage);
+              localStorage.setItem("language", newLanguage);
               setCountry(
                 countries.find((c) => c === e.target.value) || countries[0]
               );
             }}
           >
             {countries.map((ctr) => (
-              <MenuItem value={ctr}>
+              <MenuItem key={ctr} value={ctr}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   <img
                     loading="lazy"
@@ -105,9 +95,10 @@ function App() {
           />
         </Box>
       </AppBar>
+
       <Box
         sx={{
-          height: `calc(100% - ${animationHeight}px)`,
+          height: `calc(100% - ${animationHeight + APP_BAR_HEIGHT}px)`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -134,8 +125,8 @@ function App() {
         </Typography>
       </Box>
 
-      <AnimatedFooter />
-    </Box>
+      <FooterAnimation />
+    </AppContainer>
   );
 }
 

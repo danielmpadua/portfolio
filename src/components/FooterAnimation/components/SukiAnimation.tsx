@@ -1,6 +1,6 @@
-import SukiIdle from "../assets/gifs/sukiIdle.gif";
-import SukiWalk from "../assets/gifs/sukiWalk.gif";
-import { TAnimation } from "../hooks/useDaniAnimation";
+import SukiIdle from "../../../assets/gifs/sukiIdle.gif";
+import SukiWalk from "../../../assets/gifs/sukiWalk.gif";
+import { TAnimation } from "../../../hooks/useDaniAnimation";
 
 type TSukiAnimation = {
   currentAnimation: TAnimation;
