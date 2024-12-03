@@ -17,12 +17,9 @@ type TDanielAnimation = {
 };
 
 export const FUNCTION_DELAY = 10;
-export const DEFAULT_IMG_HEIGHT = 500;
+export const DEFAULT_IMG_HEIGHT = 500; // real size is 540px, but this way it looks better :)
 export const DEFAULT_IMG_WIDTH = 1920;
 export const GROUND_WIDTH = 600;
-export const GROUND_SPEED = 100;
-export const GROUND_DISTANCE = 10;
-export const BG_DISTANCE = 5;
 
 const AnimationOptions: TAnimation[] = [
   {

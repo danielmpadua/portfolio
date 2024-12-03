@@ -1,4 +1,4 @@
-import { TAnimation } from "../hooks/useDaniAnimation";
+import { TAnimation } from "../../../hooks/useDaniAnimation";
 
 type TDanielAnimation = {
   currentAnimation: TAnimation;

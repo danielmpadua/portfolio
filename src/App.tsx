@@ -3,12 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "./contexts/ThemeContext";
 import { DEFAULT_LANGUAGE } from "./languages/i18n";
-import { AnimatedFooter } from "./components/AnimatedFooter";
 import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
 import { ThemeSwitch } from "./components/ThemeSwitch";
 import { useDanielAnimation } from "./hooks/useDaniAnimation";
 import { useScreenSize } from "./hooks/useScreenSize";
 import { AppContainer } from "./components/AppContainer";
+import { FooterAnimation } from "./components/FooterAnimation";
+
+const APP_BAR_HEIGHT = 52;
 
 function App() {
   const { isLightMode, changeThemeMode } = useContext(ThemeContext);
@@ -24,9 +26,9 @@ function App() {
   } = useTranslation();
 
   useEffect(() => {
-    changeLanguage(sessionStorage.getItem("language") || DEFAULT_LANGUAGE);
+    changeLanguage(localStorage.getItem("language") || DEFAULT_LANGUAGE);
     setCountry(
-      sessionStorage.getItem("language") === "en" ? countries[1] : countries[0]
+      localStorage.getItem("language") === "en" ? countries[1] : countries[0]
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -65,7 +67,7 @@ function App() {
             onChange={(e) => {
               const newLanguage = e.target.value === "BR" ? "pt" : "en";
               changeLanguage(newLanguage);
-              sessionStorage.setItem("language", newLanguage);
+              localStorage.setItem("language", newLanguage);
               setCountry(
                 countries.find((c) => c === e.target.value) || countries[0]
               );
@@ -96,7 +98,7 @@ function App() {
 
       <Box
         sx={{
-          height: `calc(100% - ${animationHeight}px)`,
+          height: `calc(100% - ${animationHeight + APP_BAR_HEIGHT}px)`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -123,7 +125,7 @@ function App() {
         </Typography>
       </Box>
 
-      <AnimatedFooter />
+      <FooterAnimation />
     </AppContainer>
   );
 }
