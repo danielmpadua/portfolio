@@ -17,7 +17,9 @@ const defaultState: TThemeContext = {
 export const ThemeContext = createContext(defaultState);
 
 export const ThemeProvider = ({ children }: TThemeProvider) => {
-  const [isLightMode, setIsLightMode] = useState<boolean>(false);
+  const [isLightMode, setIsLightMode] = useState<boolean>(
+    localStorage.getItem("lightMode") === "true"
+  );
 
   const changeThemeMode = () => {
     setIsLightMode((prev) => {
