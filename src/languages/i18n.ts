@@ -5,10 +5,10 @@ import i18n from "i18next";
 import ptTranslations from "./pt.json";
 import enTranslations from "./en.json";
 
-export const DEFAULT_LANGUAGE = localStorage.getItem("language") || "pt";
+export const DEFAULT_LANGUAGE = "pt";
 
 i18n.use(initReactI18next).init({
-  lng: DEFAULT_LANGUAGE,
+  lng: localStorage.getItem("language") || DEFAULT_LANGUAGE,
   fallbackLng: DEFAULT_LANGUAGE,
   interpolation: { escapeValue: false },
   resources: {
