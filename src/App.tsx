@@ -109,14 +109,14 @@ function App() {
       >
         <HandymanOutlinedIcon
           sx={{
-            height: 150,
-            width: 150,
+            height: width < 720 ? 80 : 150,
+            width: width < 720 ? 80 : 150,
             color: "#426274",
           }}
         />
 
         <Typography
-          variant="h3"
+          variant={width < 720 ? "h6" : "h3"}
           fontFamily="Pixelify Sans"
           fontWeight={700}
           color={"#426274"}
