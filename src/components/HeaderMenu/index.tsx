@@ -1,13 +1,13 @@
 import { AppBar, Box, MenuItem, Select, Typography } from "@mui/material";
-import { useContext, useState } from "react";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import { useState } from "react";
+import { useThemeContext } from "../../contexts/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { ThemeSwitch } from "../ThemeSwitch";
 
 export const APP_BAR_HEIGHT = 52;
 
 export const HeaderMenu = () => {
-  const { isLightMode, changeThemeMode } = useContext(ThemeContext);
+  const { isLightMode, changeThemeMode } = useThemeContext();
 
   const {
     t,
