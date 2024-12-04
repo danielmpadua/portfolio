@@ -1,6 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { useContext } from "react";
-import { ThemeContext } from "./contexts/ThemeContext";
 import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
 import { useDanielAnimation } from "./hooks/useDaniAnimation";
 import { useScreenSize } from "./hooks/useScreenSize";
@@ -10,13 +8,12 @@ import { APP_BAR_HEIGHT, HeaderMenu } from "./components/HeaderMenu";
 import { useTranslation } from "react-i18next";
 
 function App() {
-  const { isLightMode } = useContext(ThemeContext);
   const { width } = useScreenSize();
   const { animationHeight } = useDanielAnimation({ width });
   const { t } = useTranslation();
 
   return (
-    <AppContainer isLightMode={isLightMode}>
+    <AppContainer>
       <HeaderMenu />
 
       <Box
