@@ -1,6 +1,8 @@
 {
-  "light_theme": "Tema claro",
-  "dark_theme": "Tema escuro",
   "change_language": "Alterar idioma",
-  "under_construction": "Em construção..."
+  "under_construction": "Em construção",
+  "my_item_male_one": "Meu {{item}}",
+  "my_item_male_other": "Meus {{item}}",
+  "made_with_love": "Feito com ♥ por Daniel Pádua :)",
+  "projects": "Projetos"
 }
