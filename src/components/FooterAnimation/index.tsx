@@ -12,6 +12,7 @@ import LightGround from "../../assets/images/lightBgGround.png";
 import LightBg from "../../assets/images/lightBg.png";
 import { DanielAnimation } from "./components/DanielAnimation";
 import { SukiAnimation } from "./components/SukiAnimation";
+import { APP_BAR_HEIGHT } from "../HeaderMenu";
 
 export const FooterAnimation = () => {
   const { isLightMode } = useContext(ThemeContext);
@@ -39,17 +40,17 @@ export const FooterAnimation = () => {
     <Box
       sx={{
         width: "100%",
-        height: "100%",
-        marginInline: "auto",
-        overflow: "hidden",
-        position: "relative",
+        height: `calc(100% - ${APP_BAR_HEIGHT}px)`,
+        position: "absolute",
+        top: APP_BAR_HEIGHT,
+        zIndex: 0,
       }}
     >
-      <Box sx={{ position: "absolute", zIndex: 100, top: 90, right: 50 }}>
+      <Box sx={{ position: "absolute", zIndex: 3, bottom: 0, right: 50 }}>
         <DanielAnimation currentAnimation={currentAnimation} />
       </Box>
 
-      <Box sx={{ position: "absolute", zIndex: 101, top: 121, right: 40 }}>
+      <Box sx={{ position: "absolute", zIndex: 4, bottom: 0, right: 40 }}>
         <SukiAnimation currentAnimation={currentAnimation} />
       </Box>
 

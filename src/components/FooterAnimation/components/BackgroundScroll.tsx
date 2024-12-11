@@ -30,6 +30,7 @@ export const BackgroundScroll = ({
     <Box
       sx={{
         position: "absolute",
+        bottom: -10,
         zIndex,
       }}
     >
