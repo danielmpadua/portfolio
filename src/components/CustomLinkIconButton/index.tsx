@@ -3,11 +3,9 @@ import { IconButton } from "@mui/material";
 export const CustomLinkIconButton = ({
   icon,
   link,
-  smoothHover,
 }: {
   icon?: JSX.Element;
   link?: string;
-  smoothHover?: boolean;
 }) => (
   <IconButton
     sx={{
@@ -16,7 +14,7 @@ export const CustomLinkIconButton = ({
       background: "rgba(0, 0, 0, 0.2)",
       "&:hover": {
         background: "rgba(0, 0, 0, 0.4)",
-        border: `${smoothHover ? 2 : 3}px solid white`,
+        border: `3px solid white`,
         color: "white",
       },
     }}

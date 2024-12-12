@@ -1,14 +1,16 @@
 import { AppContainer } from "./components/AppContainer";
 import { HeaderMenu } from "./components/HeaderMenu";
-import { Home } from "./pages/Home";
+import { BrowserRouter } from "react-router";
+import { Router } from "./routes";
 
 function App() {
   return (
-    <AppContainer>
-      <HeaderMenu />
-
-      <Home />
-    </AppContainer>
+    <BrowserRouter>
+      <AppContainer>
+        <HeaderMenu />
+        <Router />
+      </AppContainer>
+    </BrowserRouter>
   );
 }
 
