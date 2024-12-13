@@ -4,17 +4,23 @@ import { FooterAnimation } from "../../components/FooterAnimation";
 import { LinkAggregator } from "./components/LinkAggregator";
 import { useState } from "react";
 
-import { Portifolio } from "./components/Portifolio";
+import { Projects } from "./components/Projects";
+import { useSearchParams } from "react-router";
 
-export const Home = () => {
-  const [currentOption, setCurrentOption] = useState("links");
+export const Portifolio = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [currentOption, setCurrentOption] = useState(
+    searchParams.get("tab") === "projects" ? "projects" : "links"
+  );
 
   const onChangeOption = (option: string) => {
     setCurrentOption(option);
+    setSearchParams(`tab=${option}`);
   };
 
   return (
-    <>
+    <Box>
       <Box
         sx={{
           position: "absolute",
@@ -56,15 +62,16 @@ export const Home = () => {
 
         {currentOption === "links" && (
           <LinkAggregator
-            onClickPortifolio={() => onChangeOption("portifolio")}
+            onClickPortifolio={() => onChangeOption("projects")}
           />
         )}
 
-        {currentOption === "portifolio" && (
-          <Portifolio onClickLinks={() => onChangeOption("links")} />
+        {currentOption === "projects" && (
+          <Projects onClickLinks={() => onChangeOption("links")} />
         )}
       </Box>
+
       <FooterAnimation />
-    </>
+    </Box>
   );
 };

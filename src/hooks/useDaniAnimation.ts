@@ -3,8 +3,15 @@ import DaniIdle2 from "../assets/gifs/daniIdle2.gif";
 import DaniWalk from "../assets/gifs/daniSideWalk.gif";
 import DaniIdle from "../assets/gifs/daniIdle.gif";
 
+export enum ANIMATIONS {
+  IDLE = "idle",
+  IDLE2 = "idle2",
+  WALK = "walk",
+  FALL = "fall",
+}
+
 export type TAnimation = {
-  name: "idle" | "walk" | "idle2" | "fall";
+  name: string;
   gif: string;
   time: number;
   numberRangeMax: number;
@@ -14,6 +21,7 @@ export type TAnimation = {
 
 type TDanielAnimation = {
   width: number;
+  filterAnimations?: string[];
 };
 
 export const FUNCTION_DELAY = 10;
@@ -45,16 +53,23 @@ const AnimationOptions: TAnimation[] = [
   },
 ];
 
-export const useDanielAnimation = ({ width }: TDanielAnimation) => {
+export const useDanielAnimation = ({
+  width,
+  filterAnimations,
+}: TDanielAnimation) => {
+  const filtredAnimations = filterAnimations?.length
+    ? AnimationOptions?.filter((item) => filterAnimations?.includes(item?.name))
+    : AnimationOptions;
+
   const [currentAnimation, setCurrentAnimation] = useState<TAnimation>({
-    ...AnimationOptions[0],
+    ...filtredAnimations[0],
     currentChangeNumber: 1,
   });
 
   const getNewAnimation = () => {
     const number = Math?.floor(Math?.random() * 100);
 
-    return AnimationOptions?.find(
+    return filtredAnimations?.find(
       (animation) =>
         animation?.numberRangeMin <= number &&
         animation?.numberRangeMax >= number
@@ -67,7 +82,7 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
   };
 
   useEffect(() => {
-    setCurrentAnimation(AnimationOptions[0]);
+    setCurrentAnimation(filtredAnimations[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
@@ -75,7 +90,7 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
     let timeoutId: NodeJS.Timeout;
     timeoutId = setTimeout(() => {
       const newAnimation: TAnimation = {
-        ...(getNewAnimation() || AnimationOptions[0]),
+        ...(getNewAnimation() || filtredAnimations[0]),
         currentChangeNumber: (currentAnimation?.currentChangeNumber || 0) + 1,
       };
 
@@ -89,6 +104,7 @@ export const useDanielAnimation = ({ width }: TDanielAnimation) => {
   return {
     currentAnimation,
     AnimationOptions,
+    filtredAnimations,
     setCurrentAnimation,
     animationHeight: animationHeight(),
   };

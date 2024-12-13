@@ -40,14 +40,11 @@ export const AppThemeProvider = ({ children }: TThemeProvider) => {
     });
   }, []);
 
-  const theme = useCallback(() => {
-    if (isLightMode) return LightTheme;
-    return DarkTheme;
-  }, [isLightMode]);
-
   return (
     <ThemeContext.Provider value={{ isLightMode, changeThemeMode }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={isLightMode ? LightTheme : DarkTheme}>
+        {children}
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 };

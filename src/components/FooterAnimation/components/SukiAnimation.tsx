@@ -4,11 +4,16 @@ import { TAnimation } from "../../../hooks/useDaniAnimation";
 
 type TSukiAnimation = {
   currentAnimation: TAnimation;
+  scale?: number;
 };
 
-export const SukiAnimation = ({ currentAnimation }: TSukiAnimation) => {
+export const SukiAnimation = ({
+  currentAnimation,
+  scale = 1,
+}: TSukiAnimation) => {
   return (
     <img
+      width={32 * scale}
       src={currentAnimation?.name === "walk" ? SukiWalk : SukiIdle}
       alt="Suki Animation"
     />

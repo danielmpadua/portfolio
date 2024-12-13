@@ -1,17 +1,17 @@
-import { Box, Button, Card } from "@mui/material";
+import { Box } from "@mui/material";
 import { Carousel } from "primereact/carousel";
-import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import { CustomLinkButton } from "../../../../components/CustomLinkButton";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-import { CustomLinkIconButton } from "../../../../components/CustomLinkIconButton";
 import { useTranslation } from "react-i18next";
+import { CarouselNavigation } from "../CarouselNavigation";
+import { CarouselItem } from "../CarouselItem";
 
-type TPortifolio = {
+type TProjects = {
   onClickLinks: () => void;
 };
 
-type TProject = {
+export type TProject = {
   name?: string;
   image?: string;
   link?: string;
@@ -19,7 +19,7 @@ type TProject = {
 
 const PROJECTS: TProject[] = [{}, {}, {}, {}];
 
-export const Portifolio = ({ onClickLinks }: TPortifolio) => {
+export const Projects = ({ onClickLinks }: TProjects) => {
   const { t } = useTranslation();
 
   const responsiveOptions = [
@@ -44,40 +44,6 @@ export const Portifolio = ({ onClickLinks }: TPortifolio) => {
       numScroll: 1,
     },
   ];
-
-  const productTemplate = (project: TProject) => {
-    return (
-      <Card
-        sx={{
-          m: 1,
-          height: 150,
-          opacity: 0.8,
-          background: "whitesmoke",
-          borderRadius: "8px",
-          "&:hover": {
-            opacity: 1,
-          },
-        }}
-      >
-        <Button
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            backdropFilter: "blur(4px)",
-            WebkitBackdropFilter: "blur(4px)",
-            color: "#54acac",
-          }}
-        >
-          {!project?.name && <ConstructionRoundedIcon fontSize="large" />}
-          {t(project?.name || "under_construction")}
-        </Button>
-      </Card>
-    );
-  };
 
   return (
     <>
@@ -111,18 +77,11 @@ export const Portifolio = ({ onClickLinks }: TPortifolio) => {
           numVisible={3}
           numScroll={3}
           responsiveOptions={responsiveOptions}
-          itemTemplate={productTemplate}
+          itemTemplate={CarouselItem}
           circular
           autoplayInterval={3000}
-          prevIcon={
-            <CustomLinkIconButton smoothHover icon={<ArrowBackRoundedIcon />} />
-          }
-          nextIcon={
-            <CustomLinkIconButton
-              smoothHover
-              icon={<ArrowForwardRoundedIcon />}
-            />
-          }
+          prevIcon={<CarouselNavigation icon={<ArrowBackRoundedIcon />} />}
+          nextIcon={<CarouselNavigation icon={<ArrowForwardRoundedIcon />} />}
         />
       </Box>
     </>

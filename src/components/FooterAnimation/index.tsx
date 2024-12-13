@@ -14,10 +14,17 @@ import { DanielAnimation } from "./components/DanielAnimation";
 import { SukiAnimation } from "./components/SukiAnimation";
 import { APP_BAR_HEIGHT } from "../HeaderMenu";
 
-export const FooterAnimation = () => {
+type TFooterAnimation = {
+  scale?: number;
+  filterAnimations?: string[];
+};
+export const FooterAnimation = ({
+  scale,
+  filterAnimations,
+}: TFooterAnimation) => {
   const { isLightMode } = useContext(ThemeContext);
   const { width } = useScreenSize();
-  const { currentAnimation } = useDanielAnimation({ width });
+  const { currentAnimation } = useDanielAnimation({ width, filterAnimations });
 
   const createPopulatedArray = (size: number) => {
     const newGrounds = Array(size).fill(0);
@@ -46,15 +53,30 @@ export const FooterAnimation = () => {
         zIndex: 0,
       }}
     >
-      <Box sx={{ position: "absolute", zIndex: 3, bottom: 0, right: 50 }}>
-        <DanielAnimation currentAnimation={currentAnimation} />
+      <Box
+        sx={{
+          position: "absolute",
+          zIndex: 3,
+          bottom: 0,
+          right: `calc(50% - ${32 * (scale || 1)}px)`,
+        }}
+      >
+        <DanielAnimation currentAnimation={currentAnimation} scale={scale} />
       </Box>
 
-      <Box sx={{ position: "absolute", zIndex: 4, bottom: 0, right: 40 }}>
-        <SukiAnimation currentAnimation={currentAnimation} />
+      <Box
+        sx={{
+          position: "absolute",
+          zIndex: 4,
+          bottom: 0,
+          right: `calc(50% - ${36 * (scale || 1)}px)`,
+        }}
+      >
+        <SukiAnimation currentAnimation={currentAnimation} scale={scale} />
       </Box>
 
       <BackgroundScroll
+        scale={scale ? scale / 1.5 : 1}
         elements={backgrounds}
         image={isLightMode ? LightBg : DarkBg}
         width={GROUND_WIDTH}
@@ -63,6 +85,7 @@ export const FooterAnimation = () => {
       />
 
       <BackgroundScroll
+        scale={scale ? scale / 1.5 : 1}
         elements={backgrounds}
         image={isLightMode ? LightGround : DarkGround}
         width={GROUND_WIDTH}

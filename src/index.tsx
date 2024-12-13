@@ -11,11 +11,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <AppThemeProvider>
+  <AppThemeProvider>
+    <React.StrictMode>
       <App />
-    </AppThemeProvider>
-  </React.StrictMode>
+    </React.StrictMode>
+  </AppThemeProvider>
 );
 
 reportWebVitals();
