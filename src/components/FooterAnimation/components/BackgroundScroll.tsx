@@ -16,6 +16,7 @@ type TBackgroundScroll = {
   speed?: number;
   zIndex?: number;
   paused?: boolean;
+  scale?: number;
 };
 
 export const BackgroundScroll = ({
@@ -25,12 +26,13 @@ export const BackgroundScroll = ({
   speed = 15,
   zIndex = 1,
   paused,
+  scale = 1,
 }: TBackgroundScroll) => {
   return (
     <Box
       sx={{
         position: "absolute",
-        bottom: -10,
+        bottom: -10 * scale,
         zIndex,
       }}
     >
@@ -43,7 +45,12 @@ export const BackgroundScroll = ({
         }}
       >
         {elements.map((_, index) => (
-          <img key={index} src={image} alt="ground" style={{ width }} />
+          <img
+            key={index}
+            src={image}
+            alt="ground"
+            style={{ width: width * scale }}
+          />
         ))}
       </Box>
     </Box>

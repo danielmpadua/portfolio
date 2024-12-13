@@ -4,5 +4,7 @@
   "my_item_male_one": "Meu {{item}}",
   "my_item_male_other": "Meus {{item}}",
   "made_with_love": "Feito com ♥ por Daniel Pádua :)",
-  "projects": "Projetos"
+  "projects": "Projetos",
+  "page_not_found": "Ah não, página não encontrada! :(",
+  "return_home_screen": "Voltar para tela inicial"
 }

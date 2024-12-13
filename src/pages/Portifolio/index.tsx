@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router";
 
 export const Portifolio = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [currentOption, setCurrentOption] = useState(
     searchParams.get("tab") === "projects" ? "projects" : "links"
   );
@@ -69,6 +70,7 @@ export const Portifolio = () => {
           <Projects onClickLinks={() => onChangeOption("links")} />
         )}
       </Box>
+
       <FooterAnimation />
     </Box>
   );
