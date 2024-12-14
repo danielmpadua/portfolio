@@ -48,7 +48,6 @@ export const NotFound = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                // gap: 1,
               }}
             >
               <Typography variant="h3" fontFamily="Pixelify+Sans" margin={1}>
@@ -61,14 +60,11 @@ export const NotFound = () => {
                     mb: 1,
                     background: isLightMode ? "#41b0a0" : "#426274",
                   }}
-                  onClick={() => navigate("/portifolio")}
+                  onClick={() => navigate("/")}
                 >
                   {t("return_home_screen")}
                 </Button>
               </Box>
-              {/* <Typography variant="h6" fontFamily="Pixelify+Sans" margin={1}>
-                {t("return_home_screen")}
-              </Typography> */}
             </Box>
           }
         />
