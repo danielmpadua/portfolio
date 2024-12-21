@@ -44,7 +44,7 @@ export const HeaderMenu = () => {
           }}
         >
           <Typography>
-            {t(pathname?.replace("/", "") || "portifolio").toUpperCase()}
+            {t(pathname?.replace("/", "") || "portfolio").toUpperCase()}
           </Typography>
         </Grid>
         <Grid

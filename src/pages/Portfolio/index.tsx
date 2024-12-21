@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Projects } from "./components/Projects";
 import { useSearchParams } from "react-router";
 
-export const Portifolio = () => {
+export const Portfolio = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [currentOption, setCurrentOption] = useState(
