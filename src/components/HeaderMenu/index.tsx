@@ -1,5 +1,5 @@
 import { AppBar, Box, Grid, MenuItem, Select, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useThemeContext } from "../../contexts/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { ThemeSwitch } from "../ThemeSwitch";
