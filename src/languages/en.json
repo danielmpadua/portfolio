@@ -1,10 +1,11 @@
 {
-  "change_language": "Change language",
   "under_construction": "Under construction",
   "my_item_male_one": "My {{item}}",
   "my_item_male_other": "My {{item}}",
   "made_with_love": "Made with ♥ by Daniel Pádua :)",
   "projects": "projects",
   "page_not_found": "Oh no, page not found! :(",
-  "return_home_screen": "Return to home screen"
+  "return_home_screen": "Return to home screen",
+  "finance": "Finance",
+  "new": "New"
 }

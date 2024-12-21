@@ -6,6 +6,7 @@ import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { useTranslation } from "react-i18next";
 import { CarouselNavigation } from "../CarouselNavigation";
 import { CarouselItem } from "../CarouselItem";
+import Finance from "../../../../assets/images/finance.jpg";
 
 type TProjects = {
   onClickLinks: () => void;
@@ -14,46 +15,45 @@ type TProjects = {
 export type TProject = {
   name?: string;
   image?: string;
-  link?: string;
+  tab?: string;
+  news?: boolean;
 };
 
-const PROJECTS: TProject[] = [{}, {}, {}, {}];
+const responsiveOptions = [
+  {
+    breakpoint: "1400px",
+    numVisible: 2,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "1199px",
+    numVisible: 3,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "767px",
+    numVisible: 2,
+    numScroll: 1,
+  },
+  {
+    breakpoint: "575px",
+    numVisible: 1,
+    numScroll: 1,
+  },
+];
+
+const PROJECTS: TProject[] = [
+  { name: "finance", tab: "/finance", image: Finance, news: true },
+  {},
+  {},
+];
 
 export const Projects = ({ onClickLinks }: TProjects) => {
   const { t } = useTranslation();
 
-  const responsiveOptions = [
-    {
-      breakpoint: "1400px",
-      numVisible: 2,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "1199px",
-      numVisible: 3,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "767px",
-      numVisible: 2,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "575px",
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
-
   return (
     <>
-      <Box
-        sx={{
-          maxWidth: 360,
-
-          width: "100%",
-        }}
-      >
+      <Box sx={{ maxWidth: 360, width: "100%" }}>
         <CustomLinkButton
           text={t("my_item_male_other", { item: "links" })}
           onClick={onClickLinks}
@@ -63,7 +63,7 @@ export const Projects = ({ onClickLinks }: TProjects) => {
 
       <Box
         sx={{
-          maxWidth: 720,
+          maxWidth: 900,
           width: "100%",
           padding: 1,
           borderRadius: "12px",
@@ -75,7 +75,7 @@ export const Projects = ({ onClickLinks }: TProjects) => {
         <Carousel
           value={PROJECTS}
           numVisible={3}
-          numScroll={3}
+          numScroll={1}
           responsiveOptions={responsiveOptions}
           itemTemplate={CarouselItem}
           circular

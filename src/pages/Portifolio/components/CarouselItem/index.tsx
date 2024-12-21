@@ -1,25 +1,27 @@
-import { Button, Card } from "@mui/material";
+import { Box, Card, CardActionArea, Typography } from "@mui/material";
 import { TProject } from "../Projects";
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 export const CarouselItem = (project: TProject) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Card
       sx={{
         m: 1,
         height: 150,
-        opacity: 0.8,
-        background: "whitesmoke",
+        background: project?.image
+          ? `url(${project?.image}) no-repeat center/cover`
+          : "whitesmoke",
         borderRadius: "8px",
-        "&:hover": {
-          opacity: 1,
-        },
+        position: "relative",
       }}
     >
-      <Button
+      <CardActionArea
+        onClick={() => (project?.tab ? navigate(project?.tab) : {})}
         sx={{
           width: "100%",
           height: "100%",
@@ -27,14 +29,58 @@ export const CarouselItem = (project: TProject) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-          color: "#54acac",
+          WebkitBackdropFilter: "blur(1px)",
+          backdropFilter: "blur(1px)",
+          background: "rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            WebkitBackdropFilter: "none",
+            backdropFilter: "none",
+            background: "rgba(0, 0, 0, 0)",
+          },
         }}
       >
+        {project?.news && (
+          <Box
+            sx={{
+              background: "rgba(180, 50, 50, 0.9)",
+              padding: "4px 8px",
+              borderRadius: "8px",
+              position: "absolute",
+              top: 4,
+              right: 4,
+            }}
+          >
+            <Typography
+              variant="caption"
+              fontFamily="Inter"
+              sx={{ color: "whitesmoke" }}
+            >
+              {t("new")}
+            </Typography>
+          </Box>
+        )}
+
+        {project?.name && (
+          <Box
+            sx={{
+              background: "rgba(0, 0, 0, 0.8)",
+              borderRadius: "12px",
+              padding: "4px 8px",
+            }}
+          >
+            <Typography
+              variant="body1"
+              fontFamily="Inter"
+              sx={{ color: "whitesmoke" }}
+            >
+              {t(project?.name).toUpperCase()}
+            </Typography>
+          </Box>
+        )}
+
         {!project?.name && <ConstructionRoundedIcon fontSize="large" />}
-        {t(project?.name || "under_construction")}
-      </Button>
+        {!project?.name && t("under_construction")}
+      </CardActionArea>
     </Card>
   );
 };
