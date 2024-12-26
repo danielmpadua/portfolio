@@ -5,10 +5,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -23,7 +21,7 @@ export type TRowContent = {
   name: string;
   percentage?: number;
   value?: number;
-
+  addIncome?: "SIMPLE" | "TESOURO" | "B3";
   items?: TRowContent[];
 };
 
@@ -37,21 +35,31 @@ const defautTableContent: TRowContent[] = [
         name: "CDB",
         percentage: 0,
         value: 0,
+        addIncome: "SIMPLE",
       },
       {
         name: "LCI",
         percentage: 0,
         value: 0,
+        addIncome: "SIMPLE",
       },
       {
         name: "LCA",
         percentage: 0,
         value: 0,
+        addIncome: "SIMPLE",
+      },
+      {
+        name: "Poupança",
+        percentage: 0,
+        value: 0,
+        addIncome: "SIMPLE",
       },
       {
         name: "Tesouro Direto",
         percentage: 0,
         value: 0,
+        addIncome: "TESOURO",
       },
     ],
   },
@@ -64,20 +72,19 @@ const defautTableContent: TRowContent[] = [
         name: "FII",
         percentage: 0,
         value: 0,
+        addIncome: "B3",
       },
       {
         name: "Ações",
         percentage: 0,
         value: 0,
-        items: [
-          { name: "Ações2", percentage: 0, value: 0 },
-          { name: "Ações3", percentage: 0, value: 0 },
-        ],
+        addIncome: "B3",
       },
       {
         name: "ETF",
         percentage: 0,
         value: 0,
+        addIncome: "B3",
       },
     ],
   },

@@ -5,6 +5,7 @@ import {
   ruleOfThree,
 } from "../../../../utils/finance";
 import {
+  Box,
   Collapse,
   IconButton,
   Table,
@@ -17,7 +18,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { TRowContent } from ".";
 import { TotalRow } from "./TotalRow";
-
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 export const IncomeRow = ({
   row,
   availableCash,
@@ -97,7 +98,7 @@ export const IncomeRow = ({
 
   return (
     <>
-      <TableRow>
+      <TableRow sx={{ background: layer % 2 === 0 ? "whitesmoke" : " white" }}>
         <TableCell sx={{ width: "33.3%", pl: layer }}>
           <IconButton
             disabled={!row?.items?.length}
@@ -117,8 +118,36 @@ export const IncomeRow = ({
             onChange={onChangeIncomePercentage}
           />
         </TableCell>
-        <TableCell align="center" sx={{ width: "33.3%" }}>
-          <CurrencyInput value={row?.value} onChange={onChangeIncomeValue} />
+        <TableCell
+          align="center"
+          sx={{ width: "33.3%", paddingLeft: !!row?.addIncome ? 5 : 0 }}
+        >
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box />
+
+            <CurrencyInput value={row?.value} onChange={onChangeIncomeValue} />
+
+            {!!row?.addIncome ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <IconButton
+                  aria-label="expand row"
+                  size="small"
+                  onClick={() => {}}
+                  sx={{ ml: 1 }}
+                >
+                  <AddCircleOutlineOutlinedIcon />
+                </IconButton>
+              </Box>
+            ) : (
+              <Box />
+            )}
+          </Box>
         </TableCell>
       </TableRow>
 

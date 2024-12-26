@@ -30,7 +30,7 @@ export const TotalRow = ({ layer = 1, rows, maxValue }: TTotalRow) => {
   const rowColor = () => {
     if (totalPercentage > 100 || totalValue > (maxValue || 0))
       return "rgba(255,0,0,0.1)";
-    return "white";
+    return layer % 2 === 0 ? "whitesmoke" : " white";
   };
 
   return (
