@@ -5,12 +5,15 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 
 import { useState } from "react";
 import { IncomeRow } from "./IncomeRow";
+import { TotalRow } from "./TotalRow";
 
 type TDistributionTable = {
   availableCash?: number;
@@ -131,15 +134,6 @@ export const DistributionTable = ({ availableCash }: TDistributionTable) => {
     );
   };
 
-  const sumTotal = (values: number[]) => {
-    let result = 0;
-    values?.forEach((value) => {
-      result += value;
-    });
-
-    return result;
-  };
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <TableContainer component={Paper}>
@@ -163,6 +157,8 @@ export const DistributionTable = ({ availableCash }: TDistributionTable) => {
           </TableHead>
 
           <TableBody>
+            <TotalRow rows={tableContent} maxValue={availableCash} />
+
             {tableContent?.map((row, index) => (
               <IncomeRow
                 key={row?.name}

@@ -16,6 +16,7 @@ import { CurrencyInput } from "../../../../components/CurrencyInput";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { TRowContent } from ".";
+import { TotalRow } from "./TotalRow";
 
 export const IncomeRow = ({
   row,
@@ -130,6 +131,12 @@ export const IncomeRow = ({
                 aria-label="Distribution Table"
                 size="small"
               >
+                <TotalRow
+                  layer={layer + 1}
+                  rows={row?.items}
+                  maxValue={row?.value}
+                />
+
                 {row?.items?.map((item, index) => (
                   <IncomeRow
                     key={item?.name}
