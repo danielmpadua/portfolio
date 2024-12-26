@@ -23,17 +23,17 @@ export const IncomeRow = ({
   currentIndex,
   handleChangeContent,
   layer = 1,
-  parentsIndex,
+  pathIndex,
 }: {
   row: TRowContent;
   availableCash?: number;
   currentIndex: number;
   layer?: number;
-  parentsIndex?: number[];
+  pathIndex: number[];
   handleChangeContent: (
     content: TRowContent,
     index: number,
-    parentsIndex?: number[]
+    pathIndex: number[]
   ) => void;
 }) => {
   const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ export const IncomeRow = ({
         percentage: ruleOfThree(availableCash, 100, optionalValue),
       },
       currentIndex,
-      parentsIndex
+      pathIndex
     );
   };
 
@@ -74,7 +74,7 @@ export const IncomeRow = ({
         percentage: optionalValue,
       },
       currentIndex,
-      parentsIndex
+      pathIndex
     );
   };
 
@@ -87,7 +87,7 @@ export const IncomeRow = ({
           percentage: row?.percentage,
         },
         currentIndex,
-        parentsIndex
+        pathIndex
       );
     }
 
@@ -138,11 +138,7 @@ export const IncomeRow = ({
                     currentIndex={index}
                     handleChangeContent={handleChangeContent}
                     layer={layer + 1}
-                    parentsIndex={
-                      !!parentsIndex
-                        ? [...parentsIndex, currentIndex]
-                        : [currentIndex]
-                    }
+                    pathIndex={[...pathIndex, index]}
                   />
                 ))}
               </Table>
