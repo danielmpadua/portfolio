@@ -7,6 +7,7 @@ import { TickerSelect } from "./components/TickerSelect";
 import { CurrencyInput } from "../../components/CurrencyInput";
 
 import { DistributionTable } from "./components/DistributionTable";
+import { PageContainer } from "../../components/PageContainer";
 const { Buffer } = require("buffer/");
 
 export type TIncome = {
@@ -59,7 +60,7 @@ export const Finance = () => {
   }, []);
 
   return (
-    <>
+    <PageContainer title="Distribuição de Investimentos">
       <Box
         sx={{
           background: "orange",
@@ -69,6 +70,9 @@ export const Finance = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
         }}
       >
         <Typography color="whitesmoke">
@@ -76,27 +80,22 @@ export const Finance = () => {
           valores
         </Typography>
       </Box>
+      <Box>
+        <Typography>Valor disponível para investir: </Typography>
+        <CurrencyInput
+          value={availableCash}
+          size="small"
+          onChange={(e) => {
+            const newValue = e.target.value as unknown as number;
+            const optionalValue = isNaN(newValue) ? undefined : newValue;
+            setAvailableCash(optionalValue);
+          }}
+        />
+      </Box>
 
-      <Box
-        sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 2 }}
-      >
-        <Typography variant="h6">Distribuição de Investimentos</Typography>
-        <Box>
-          <Typography>Valor disponível para investir: </Typography>
-          <CurrencyInput
-            value={availableCash}
-            size="small"
-            onChange={(e) => {
-              const newValue = e.target.value as unknown as number;
-              const optionalValue = isNaN(newValue) ? undefined : newValue;
-              setAvailableCash(optionalValue);
-            }}
-          />
-        </Box>
+      <DistributionTable availableCash={availableCash} />
 
-        <DistributionTable availableCash={availableCash} />
-
-        {/* <Box mb={1}>
+      {/* <Box mb={1}>
           Fundos selecionados:{" "}
           {symbols?.map((s) => (
             <Box>{s}</Box>
@@ -111,7 +110,6 @@ export const Finance = () => {
             {quotes?.id}: ${quotes?.price?.toFixed(3)}
           </Box>
         </Box> */}
-      </Box>
-    </>
+    </PageContainer>
   );
 };
