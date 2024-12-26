@@ -10,7 +10,7 @@ type TPageContainer = {
 
 export const PageContainer = ({ children, title }: TPageContainer) => {
   return (
-    <Scrollbars style={{ height: `calc(100% - ${APP_BAR_HEIGHT}px)` }}>
+    <Scrollbars autoHide style={{ height: `calc(100% - ${APP_BAR_HEIGHT}px)` }}>
       <Box
         sx={{ padding: 4, display: "flex", flexDirection: "column", gap: 2 }}
       >
