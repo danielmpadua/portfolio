@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DaniIdle2 from "../assets/gifs/daniIdle2.gif";
 import DaniWalk from "../assets/gifs/daniSideWalk.gif";
 import DaniIdle from "../assets/gifs/daniIdle.gif";
+import DaniFall from "../assets/gifs/dani_fall.gif";
 
 export enum ANIMATIONS {
   IDLE = "idle",
@@ -22,6 +23,7 @@ export type TAnimation = {
 type TDanielAnimation = {
   width: number;
   filterAnimations?: string[];
+  freezeAnimation?: boolean;
 };
 
 export const FUNCTION_DELAY = 10;
@@ -48,14 +50,22 @@ const AnimationOptions: TAnimation[] = [
     name: "idle2",
     gif: DaniIdle2,
     time: 2600,
-    numberRangeMin: 10,
+    numberRangeMin: 0,
     numberRangeMax: 19,
+  },
+  {
+    name: "fall",
+    gif: DaniFall,
+    time: 1500,
+    numberRangeMin: 0,
+    numberRangeMax: 0,
   },
 ];
 
 export const useDanielAnimation = ({
   width,
   filterAnimations,
+  freezeAnimation,
 }: TDanielAnimation) => {
   const filtredAnimations = filterAnimations?.length
     ? AnimationOptions?.filter((item) => filterAnimations?.includes(item?.name))
@@ -82,11 +92,12 @@ export const useDanielAnimation = ({
   };
 
   useEffect(() => {
-    setCurrentAnimation(filtredAnimations[0]);
+    if (!freezeAnimation) setCurrentAnimation(filtredAnimations[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
   useEffect(() => {
+    if (freezeAnimation) return;
     let timeoutId: NodeJS.Timeout;
     timeoutId = setTimeout(() => {
       const newAnimation: TAnimation = {
