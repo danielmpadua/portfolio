@@ -10,8 +10,9 @@ type TGameCard = {
   angleStep: number;
   radius: number;
   rotation: number;
-  total: number;
+  isOnTop: boolean;
   isSpinning: boolean;
+  total: number;
 };
 
 export const GameCard = ({
@@ -24,6 +25,7 @@ export const GameCard = ({
   radius,
   rotation,
   isSpinning,
+  isOnTop,
   total,
 }: TGameCard) => {
   const imageUrl = !!game?.appid
@@ -32,6 +34,7 @@ export const GameCard = ({
 
   const width = isSelected ? 220 : 140;
   const height = isSelected ? 83 : 53;
+
   const boxShadow = isSelected
     ? "0 0 20px 6px #0f0"
     : "0 0 8px rgba(255,255,255,0.2)";
@@ -46,7 +49,8 @@ export const GameCard = ({
 
     const depthIndex = Math.cos((zangleDeg * Math.PI) / 180); // Destaque no topo
 
-    const zIndex = Math.round((depthIndex + 1) * 100); // Normaliza para 0–200
+    const zIndex =
+      isSelected || isOnTop ? 99999 : Math.round((depthIndex + 1) * 100); // Normaliza para 0–200
     return { x, y, angleDeg, zIndex };
   };
 
@@ -77,6 +81,7 @@ export const GameCard = ({
           transform: `rotate(${rotateDeg}deg)`,
           willChange: isSpinning ? "transform" : undefined,
           zIndex: getPosition(index, rotation)?.zIndex,
+          background: "orange",
         }}
       />
     </Tooltip>

@@ -19,6 +19,7 @@ export const PickMyGame = () => {
     isSpinning,
     total,
     shuffleGames,
+    onTopIndex,
   } = usePickMyGame(steamId);
 
   if (steamGames?.length === 0) return <p>Carregando jogos...</p>;
@@ -62,7 +63,7 @@ export const PickMyGame = () => {
           </Box>
 
           <GameWheel
-            total={total}
+            onTopIndex={onTopIndex}
             angleStep={angleStep}
             gamesState={steamGames}
             isSpinning={isSpinning}

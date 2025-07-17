@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PickMyGameService } from "../services/PickMyGame.service";
+import { getRandomInt } from "../utils/pickMyGame";
 
 export type TSteamGames = {
   name: string;
@@ -11,6 +12,7 @@ export const usePickMyGame = (steamId: string) => {
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [onTopIndex, setOnTopIndex] = useState<number | null>(null);
 
   const radius = 260;
   const centerX = window.innerWidth / 2;
@@ -49,10 +51,10 @@ export const usePickMyGame = (steamId: string) => {
     const frameInterval =
       Math.round(total / 100) >= 1 ? Math.round(total / 100) : 1; // Renderiza a cada 2 frames (~30fps)
 
-    console.log("frameInterval: ", frameInterval);
+    const random = getRandomInt(10, 20);
 
-    let velocity = 15 * frameInterval;
-    const deceleration = 0.15 * frameInterval * frameInterval;
+    let velocity = random * frameInterval;
+    const deceleration = (random / 100) * frameInterval * frameInterval;
 
     const animate = () => {
       if (!isSpinningRef.current) {
@@ -72,6 +74,8 @@ export const usePickMyGame = (steamId: string) => {
 
       let newRotation = (rotationRef.current + velocity) % 360;
       setRotation(newRotation);
+
+      setOnTopIndex((prev) => getClosestToTop(newRotation));
 
       if (velocity <= 0.1) {
         const closest = getClosestToTop(newRotation);
@@ -126,8 +130,8 @@ export const usePickMyGame = (steamId: string) => {
   useEffect(() => {
     PickMyGameService.getSteamGames(steamId)
       .then(({ data }: { data: TSteamGames[] }) => {
-        setSteamGames(data);
-        // setSteamGames([...data, ...data, ...data, ...data]);
+        // setSteamGames(data);
+        setSteamGames([...data, ...data, ...data, ...data]);
         // setSteamGames(data?.filter((item, index) => index < 2));
       })
       .catch((err) => console.log("error: ", err));
@@ -146,5 +150,6 @@ export const usePickMyGame = (steamId: string) => {
     centerX,
     centerY,
     total,
+    onTopIndex,
   };
 };

@@ -15,7 +15,7 @@ type TGameWheel = {
   angleStep: number;
   selectedIndex: number | null;
   rotation: number;
-  total: number;
+  onTopIndex: number | null;
 };
 
 export const GameWheel = ({
@@ -24,7 +24,7 @@ export const GameWheel = ({
   isSpinning,
   rotation,
   selectedIndex,
-  total,
+  onTopIndex,
 }: TGameWheel) => {
   const radius = 260;
   const centerX = window.innerWidth / 2;
@@ -96,7 +96,9 @@ export const GameWheel = ({
             isSelected={index === selectedIndex}
             radius={radius}
             rotation={rotation}
-            total={total}
+            isOnTop={index === onTopIndex}
+            // isLast={index === gamesState?.length - 1}
+            total={gamesState?.length}
           />
         ))}
       </Box>
