@@ -39,7 +39,7 @@ export const CarouselItem = (project: TProject) => {
           },
         }}
       >
-        {project?.news && (
+        {project?.new && (
           <Box
             sx={{
               background: "rgba(180, 50, 50, 0.9)",

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { CarouselNavigation } from "../CarouselNavigation";
 import { CarouselItem } from "../CarouselItem";
 import Finance from "../../../../assets/images/finance.jpg";
+import PickMyGame from "../../../../assets/images/pickMyGame.jpg";
 
 type TProjects = {
   onClickLinks: () => void;
@@ -16,7 +17,7 @@ export type TProject = {
   name?: string;
   image?: string;
   tab?: string;
-  news?: boolean;
+  new?: boolean;
 };
 
 const responsiveOptions = [
@@ -43,8 +44,8 @@ const responsiveOptions = [
 ];
 
 const PROJECTS: TProject[] = [
-  { name: "finance", tab: "/finance", image: Finance, news: true },
-  {},
+  { name: "pick_my_game", tab: "/pick-my-game", image: PickMyGame, new: true },
+  { name: "finance", tab: "/finance", image: Finance, new: false },
   {},
 ];
 

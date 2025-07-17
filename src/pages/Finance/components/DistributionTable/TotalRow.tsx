@@ -20,6 +20,7 @@ export const TotalRow = ({ layer = 1, rows, maxValue }: TTotalRow) => {
   const totalPercentage = sumTotal(
     rows?.map((row) => row?.percentage as number)
   );
+
   const totalValue = sumTotal(rows?.map((row) => row?.value as number));
 
   const fontColor = () => {
